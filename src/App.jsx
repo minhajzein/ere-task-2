@@ -41,38 +41,39 @@ function App() {
 	})
 
 	const handleNextStep = () => {
-		if (
-			!formik.errors.firstName &&
-			formik.values.firstName !== '' &&
-			!formik.errors.lastName &&
-			formik.values.lastName !== '' &&
-			step === 1
-		) {
-			setStep(2)
-		} else if (
-			!formik.errors.email &&
-			formik.values.email !== '' &&
-			step === 2
-		) {
-			setStep(3)
+		if (step === 1) {
+			if (
+				!formik.errors.firstName &&
+				formik.values.firstName !== '' &&
+				!formik.errors.lastName &&
+				formik.values.lastName !== ''
+			) {
+				setStep(2)
+			} else return
+		} else if (step === 2) {
+			if (!formik.errors.email && formik.values.email !== '') {
+				setStep(3)
+			} else return
+		} else if (step === 3) {
 			setOnReview(true)
 		}
 	}
+	console.log(step, onReview)
 
 	return (
 		<div className='p-5 bg-gray-200 w-full h-dvh flex'>
 			<form
 				onSubmit={formik.handleSubmit}
-				className='m-auto bg-white p-5 rounded gap-3 flex flex-col'
+				className='m-auto max-w-lg min-w-lg bg-white p-5 rounded gap-3 flex flex-col'
 			>
 				<h1>Enter your details and continue</h1>
 				<div className='grid grid-cols-3 bg-gray-300 rounded-md p-1 shadow'>
 					{steps.map(stp => (
 						<div
-							className={`flex justify-center cursor-pointer p-1 rounded ${
+							key={stp}
+							className={`flex justify-center p-1 rounded ${
 								step == stp && 'bg-white'
 							}`}
-							onClick={() => setStep(stp)}
 						>
 							{stp}
 						</div>
