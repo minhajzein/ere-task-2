@@ -268,7 +268,7 @@ function Signup() {
 								onClick={handleNextStep}
 								className='bg-blue-500 cursor-pointer text-white px-4 rounded-lg py-1'
 							>
-								Next
+								{step > 2 ? 'Review' : 'Next'}
 							</button>
 						</div>
 					</>
